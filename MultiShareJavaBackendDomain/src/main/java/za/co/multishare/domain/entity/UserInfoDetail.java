@@ -46,14 +46,18 @@ public class UserInfoDetail {
     @Setter
     private String surname;
 
+    @Column(name = "legalIdentityNumber",
+            unique = true,
+            nullable = false)
+    private String legalIdentityNumber;
+
     @Column(name = "record_valid_from_date",
             nullable = false)
     @Getter
     @Setter
     private LocalDateTime recordValidFromDate;
 
-    @Column(name = "record_valid_to_date",
-            nullable = false)
+    @Column(name = "record_valid_to_date")
     private LocalDateTime recordValidToRecord;
 
     @JoinColumn(name = "user_info_id")

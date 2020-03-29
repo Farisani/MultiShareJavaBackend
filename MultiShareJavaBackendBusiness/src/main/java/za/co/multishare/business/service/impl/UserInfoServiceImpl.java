@@ -1,4 +1,4 @@
-package za.co.multishare.service.impl;
+package za.co.multishare.business.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import za.co.multishare.domain.dto.UserInfoDto;
 import za.co.multishare.domain.entity.UserInfo;
 import za.co.multishare.repository.repository.UserInfoRepository;
-import za.co.multishare.service.UserInfoService;
+import za.co.multishare.business.service.UserInfoService;
 
 import java.util.ArrayList;
 import java.util.List;

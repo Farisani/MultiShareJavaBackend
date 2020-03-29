@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 public class UserInfo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_info_id",
             unique = true,
             nullable = false,

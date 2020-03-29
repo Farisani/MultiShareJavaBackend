@@ -1,4 +1,4 @@
-package za.co.multishare.service;
+package za.co.multishare.business.service;
 
 import za.co.multishare.domain.dto.UserInfoDto;
 import za.co.multishare.domain.entity.UserInfo;

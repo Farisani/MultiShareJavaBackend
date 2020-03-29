@@ -18,8 +18,8 @@
 
     <modules>
         <module>MultiShareJavaBackendWeb</module>
-        <module>MultiShareJavaBackendBusiness</module>
         <module>MultiShareJavaBackendRepository</module>
+        <module>MultiShareJavaBackendBusiness</module>
         <module>MultiShareJavaBackendDomain</module>
     </modules>
 
