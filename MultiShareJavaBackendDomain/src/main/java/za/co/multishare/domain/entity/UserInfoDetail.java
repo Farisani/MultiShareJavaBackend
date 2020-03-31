@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 public class UserInfoDetail {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_info_detail_id",
             unique = true,
             updatable = false,
@@ -46,9 +46,16 @@ public class UserInfoDetail {
     @Setter
     private String surname;
 
+    @Column(name = "gender", nullable = false)
+    @Getter
+    @Setter
+    private String gender;
+
     @Column(name = "legalIdentityNumber",
             unique = true,
             nullable = false)
+    @Getter
+    @Setter
     private String legalIdentityNumber;
 
     @Column(name = "record_valid_from_date",
@@ -58,6 +65,8 @@ public class UserInfoDetail {
     private LocalDateTime recordValidFromDate;
 
     @Column(name = "record_valid_to_date")
+    @Getter
+    @Setter
     private LocalDateTime recordValidToRecord;
 
     @JoinColumn(name = "user_info_id")

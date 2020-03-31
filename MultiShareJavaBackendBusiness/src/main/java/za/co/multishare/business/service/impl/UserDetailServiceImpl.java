@@ -26,6 +26,13 @@ public class UserDetailServiceImpl implements UserDetailService {
     }
 
     @Override
+    public UserInfoDetail findActive(final Long userInfoId) {
+        final UserInfoDetail userInfoDetail = userInfoDetailRepository.findByUserInfoUserInfoIdAndRecordValidToRecordIsNull(userInfoId);
+
+        return userInfoDetail;
+    }
+
+    @Override
     public Map<Long, List<UserInfoDetail>> findAll(final List<Long> userInfIdList,
                                                    final Integer pageNumber,
                                                    final Integer pageSize) {
@@ -51,7 +58,7 @@ public class UserDetailServiceImpl implements UserDetailService {
                                                final LocalDateTime recordValidFromDate,
                                                final LocalDateTime recordValidToDate,
                                                final UserInfo userInfo) {
-        final UserInfoDetail userInfoDetail = new UserInfoDetail(null, title, name, surname,
+        final UserInfoDetail userInfoDetail = new UserInfoDetail(null, title, name, surname, gender,
                 legalIdentityNumber, recordValidFromDate, recordValidToDate, userInfo);
 
         return userInfoDetailRepository.save(userInfoDetail);
@@ -63,7 +70,8 @@ public class UserDetailServiceImpl implements UserDetailService {
         final List<UserInfoDetail> userInfoDetailList = new ArrayList<>();
 
         userInfoIdList.forEach(userInfoId -> {
-            userInfoDetailList.addAll(userInfoDetailRepository.findByUserInfoUserInfoId(userInfoId));
+            userInfoDetailList.add(userInfoDetailRepository
+                    .findByUserInfoUserInfoIdAndRecordValidToRecordIsNull(userInfoId));
         });
 
         userInfoDetailRepository.deleteAll(userInfoDetailList);

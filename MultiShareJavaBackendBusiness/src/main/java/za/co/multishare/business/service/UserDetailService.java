@@ -18,6 +18,8 @@ public interface UserDetailService {
      */
     Map<Long, List<UserInfoDetail>> findAll(List<Long> userInfIdList, Integer pageNumber, Integer pageSize);
 
+    UserInfoDetail findActive(Long userInfoId);
+
     /**
      * Creates a user details info
      * @param title

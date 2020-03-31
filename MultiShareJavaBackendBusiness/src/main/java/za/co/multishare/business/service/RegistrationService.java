@@ -12,7 +12,7 @@ public interface RegistrationService {
      * @param recordValidFromDate - start date for registration to be valid
      * @param recordValidToDate - end date for registration to be valid
      */
-    void registerUser(RegistrationDto registrationDto,
+    Long registerUser(RegistrationDto registrationDto,
                       LocalDateTime recordValidFromDate,
                       LocalDateTime recordValidToDate);
 }
