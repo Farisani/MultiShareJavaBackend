@@ -51,6 +51,8 @@ public class ContactInfo {
     private LocalDateTime recordValidFromDate;
 
     @Column(name = "record_valid_to_date")
+    @Getter
+    @Setter
     private LocalDateTime recordValidToDate;
 
     @ManyToOne

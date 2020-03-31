@@ -24,8 +24,8 @@ public class RegistrationController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Boolean> register(@RequestBody final RegistrationDto registrationDto) {
-        registrationService.registerUser(registrationDto, LocalDateTime.now(), null);
-        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
+    public ResponseEntity<Long> register(@RequestBody final RegistrationDto registrationDto) {
+        final Long userInfoId = registrationService.registerUser(registrationDto, LocalDateTime.now(), null);
+        return new ResponseEntity<>(userInfoId, HttpStatus.OK);
     }
 }

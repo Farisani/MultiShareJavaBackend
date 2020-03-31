@@ -38,7 +38,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Transactional
     @Override
-    public void registerUser(final RegistrationDto registrationDto,
+    public Long registerUser(final RegistrationDto registrationDto,
                              final LocalDateTime recordValidFromDate,
                              final LocalDateTime recordValidToDate) {
 
@@ -53,7 +53,8 @@ public class RegistrationServiceImpl implements RegistrationService {
         final ContactInfoDto emailContactInfoDto = new ContactInfoDto(userInfo.getUserInfoId(),
                 registrationDto.getEmailAddress(), "EMAIL", recordValidFromDate, recordValidToDate);
 
-        contactInfoService.createContactInfo(Arrays.asList(contactNumberContactInfoDto, emailContactInfoDto));
+        contactInfoService.createContactInfo(Arrays.asList(contactNumberContactInfoDto, emailContactInfoDto),
+                recordValidFromDate, recordValidToDate, userInfo);
 
         loginInfoService.createLoginInfo(registrationDto.getPassword(),
                 recordValidFromDate, recordValidToDate, userInfo);
@@ -61,5 +62,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         userDetailService.createUserInfoDetail(registrationDto.getTitle(), registrationDto.getSurname(),
                 registrationDto.getName(), registrationDto.getGender(), registrationDto.getLegalIdentityNumber(),
                 recordValidFromDate, recordValidToDate, userInfo);
+
+        return userInfo.getUserInfoId();
     }
 }
