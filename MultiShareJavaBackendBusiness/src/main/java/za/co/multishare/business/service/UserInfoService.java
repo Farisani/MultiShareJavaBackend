@@ -38,4 +38,6 @@ public interface UserInfoService {
      */
     List<UserInfo> updateUserInfo(List<UserInfo> userInfoList);
 
+    UserInfo findById(Long userInfoId);
+
 }
