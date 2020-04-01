@@ -51,4 +51,9 @@ public class UserInfoServiceImpl implements UserInfoService {
     public List<UserInfo> updateUserInfo(List<UserInfo> userInfoList) {
         return userInfoRepository.saveAll(userInfoList);
     }
+
+    @Override
+    public UserInfo findById(Long userInfoId) {
+        return userInfoRepository.getOne(userInfoId);
+    }
 }
