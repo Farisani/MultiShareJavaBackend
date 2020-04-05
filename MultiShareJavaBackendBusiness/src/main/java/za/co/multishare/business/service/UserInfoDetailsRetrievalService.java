@@ -2,6 +2,8 @@ package za.co.multishare.business.service;
 
 import za.co.multishare.domain.dto.UserDetailsDto;
 
+import java.util.List;
+
 public interface UserInfoDetailsRetrievalService {
 
     /**
@@ -10,4 +12,6 @@ public interface UserInfoDetailsRetrievalService {
      * @return instance of user details dto
      */
     UserDetailsDto getUserDetails(Long userId);
+
+    List<UserDetailsDto> searchForUsers(String searchQuery);
 }

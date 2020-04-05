@@ -38,4 +38,7 @@ public interface ContactInfoService {
      * @param contactInfoIdList - a list of contact info id's
      */
     void deleteContactInfo(List<Long> contactInfoIdList);
+
+
+    List<ContactInfo> search(String searchQuery);
 }

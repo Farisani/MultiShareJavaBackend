@@ -81,4 +81,9 @@ public class UserDetailServiceImpl implements UserDetailService {
     public List<UserInfoDetail> updateUserInfoDetail(final List<UserInfoDetail> userInfoDetailList) {
         return userInfoDetailRepository.saveAll(userInfoDetailList);
     }
+
+    @Override
+    public List<UserInfoDetail> search(String searchQuery) {
+        return userInfoDetailRepository.findByNameContainingOrSurnameContainingAndRecordValidToRecordIsNull(searchQuery, searchQuery);
+    }
 }

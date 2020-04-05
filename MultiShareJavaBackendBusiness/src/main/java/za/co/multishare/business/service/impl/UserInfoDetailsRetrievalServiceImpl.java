@@ -8,6 +8,7 @@ import za.co.multishare.business.service.UserInfoDetailsRetrievalService;
 import za.co.multishare.domain.dto.ContactDetailsInfoDto;
 import za.co.multishare.domain.dto.UserDetailsDto;
 import za.co.multishare.domain.entity.ContactInfo;
+import za.co.multishare.domain.entity.UserInfo;
 import za.co.multishare.domain.entity.UserInfoDetail;
 
 import java.util.ArrayList;
@@ -45,5 +46,30 @@ public class UserInfoDetailsRetrievalServiceImpl implements UserInfoDetailsRetri
         return new UserDetailsDto(userId, userInfoDetail.getTitle(), userInfoDetail.getName(),
                 userInfoDetail.getSurname(), userInfoDetail.getGender(), contactDetailsInfoDtoList,
                 userInfoDetail.getLegalIdentityNumber());
+    }
+
+    @Override
+    public List<UserDetailsDto> searchForUsers(final String searchQuery) {
+        List<UserDetailsDto> userDetailsDtoList = new ArrayList<>();
+
+        List<ContactInfo> contactInfoList = contactInfoService.search(searchQuery);
+
+        contactInfoList.forEach(contactInfo -> {
+            final UserInfo userInfo = contactInfo.getUserInfo();
+            final UserInfoDetail userInfoDetail = userDetailService.findActive(userInfo.getUserInfoId());
+            userDetailsDtoList.add(new UserDetailsDto(userInfo.getUserInfoId(),
+                    null, userInfoDetail.getName(), userInfoDetail.getSurname(),
+                    userInfoDetail.getGender(), null, null));
+        });
+
+        List<UserInfoDetail> userInfoDetailList = userDetailService.search(searchQuery);
+
+        userInfoDetailList.forEach(userInfoDetail -> {
+            userDetailsDtoList.add(new UserDetailsDto(userInfoDetail.getUserInfo().getUserInfoId(),
+                    null, userInfoDetail.getName(), userInfoDetail.getSurname(),
+                    userInfoDetail.getGender(), null, null));
+        });
+
+        return userDetailsDtoList;
     }
 }
