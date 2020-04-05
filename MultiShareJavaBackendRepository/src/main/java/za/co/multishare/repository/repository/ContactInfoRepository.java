@@ -15,4 +15,6 @@ public interface ContactInfoRepository extends JpaRepository<ContactInfo, Long> 
     Page<ContactInfo> findAllByUserInfoUserInfoId(@Param("userInfoId") Long userInfoId, Pageable page);
 
     List<ContactInfo> findAllByUserInfoUserInfoIdAndRecordValidToDateIsNull(@Param("userInfoId") Long userInfoId);
+
+    List<ContactInfo> findByContactContainingAndRecordValidToDateIsNull(@Param("contact") String contact);
 }

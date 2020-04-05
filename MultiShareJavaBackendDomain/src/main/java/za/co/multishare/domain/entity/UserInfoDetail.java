@@ -71,5 +71,7 @@ public class UserInfoDetail {
 
     @JoinColumn(name = "user_info_id")
     @ManyToOne
+    @Getter
+    @Setter
     private UserInfo userInfo;
 }

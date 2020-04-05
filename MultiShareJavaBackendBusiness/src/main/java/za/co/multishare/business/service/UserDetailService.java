@@ -53,4 +53,6 @@ public interface UserDetailService {
      * @return
      */
     List<UserInfoDetail> updateUserInfoDetail(List<UserInfoDetail> userInfoDetailList);
+
+    List<UserInfoDetail> search(String searchQuery);
 }

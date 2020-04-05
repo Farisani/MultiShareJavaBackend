@@ -68,4 +68,9 @@ public class ContactInfoServiceImpl implements ContactInfoService {
     public void deleteContactInfo(final List<Long> contactInfoIdList) {
 
     }
+
+    @Override
+    public List<ContactInfo> search(final String searchQuery) {
+        return contactInfoRepository.findByContactContainingAndRecordValidToDateIsNull(searchQuery);
+    }
 }
