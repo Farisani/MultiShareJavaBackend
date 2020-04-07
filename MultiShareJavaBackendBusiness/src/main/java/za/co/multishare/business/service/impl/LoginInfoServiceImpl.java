@@ -1,6 +1,7 @@
 package za.co.multishare.business.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import za.co.multishare.domain.entity.UserInfo;
 import za.co.multishare.repository.repository.LoginInfoRepository;
@@ -13,10 +14,13 @@ import java.time.LocalDateTime;
 public class LoginInfoServiceImpl implements LoginInfoService {
 
     private final LoginInfoRepository loginInfoRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public LoginInfoServiceImpl(final LoginInfoRepository loginInfoRepository) {
+    public LoginInfoServiceImpl(final LoginInfoRepository loginInfoRepository,
+                                final PasswordEncoder passwordEncoder) {
         this.loginInfoRepository = loginInfoRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -24,7 +28,9 @@ public class LoginInfoServiceImpl implements LoginInfoService {
                                      final LocalDateTime recordValidFromDate,
                                      final LocalDateTime recordValidToDate,
                                      final UserInfo userInfo) {
-         return new LoginInfo(null, password, recordValidFromDate, recordValidToDate, userInfo);
+         final LoginInfo loginInfo = new LoginInfo(null, passwordEncoder.encode(password),
+                 recordValidFromDate, recordValidToDate, userInfo);
+          return loginInfoRepository.save(loginInfo);
     }
 
     @Override
