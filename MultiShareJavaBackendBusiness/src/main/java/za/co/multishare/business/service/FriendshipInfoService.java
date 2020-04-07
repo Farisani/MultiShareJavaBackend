@@ -22,4 +22,6 @@ public interface FriendshipInfoService {
     FriendshipInfo findFriendShipInfoId(Long friendshipInfoId);
 
     List<FriendshipInfo> updateFriendshipInfo(List<FriendshipInfo> friendshipInfoList);
+
+    List<FriendshipInfo> findFriendshipByUserInfoId(Long userInfoId);
 }

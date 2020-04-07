@@ -108,6 +108,11 @@ public class PostInfoServiceImpl implements PostInfoService {
     }
 
     @Override
+    public List<PostInfo> findAllUserPostInfo(Long userInfoId) {
+        return postInfoRepository.findByUserInfoUserInfoIdAndRecordValidToDateIsNull(userInfoId);
+    }
+
+    @Override
     public PostInfoDetail findActivePostInfoDetailByPostInfoId(Long postInfoDetailId) {
         return postInfoDetailsRepository
                 .findByPostInfoPostInfoIdAndRecordValidToDateIsNull(postInfoDetailId);

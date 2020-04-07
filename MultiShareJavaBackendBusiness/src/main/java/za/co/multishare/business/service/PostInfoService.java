@@ -32,6 +32,8 @@ public interface PostInfoService {
                                        Integer pageNumber,
                                        Integer pageSize);
 
+    List<PostInfo> findAllUserPostInfo(Long userInfoId);
+
     PostInfoDetail findActivePostInfoDetailByPostInfoId(Long postInfoDetailId);
 
     List<PostInfoDetailResource> findPostInfoDetailResourcesByPostInfoDetailId(Long postInfoDetailId);
