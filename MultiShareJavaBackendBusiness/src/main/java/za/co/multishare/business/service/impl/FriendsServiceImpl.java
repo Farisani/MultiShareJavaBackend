@@ -114,4 +114,9 @@ public class FriendsServiceImpl implements FriendsService {
         friendshipInfoService.updateFriendshipInfo(Arrays.asList(friendshipInfo, newFriendshipInfo));
 
     }
+
+    @Override
+    public List<FriendshipInfo> findFriendships(Long userInfoId) {
+        return friendshipInfoService.findFriendshipByUserInfoId(userInfoId);
+    }
 }

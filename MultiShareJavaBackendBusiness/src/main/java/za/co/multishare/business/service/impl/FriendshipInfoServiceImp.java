@@ -52,4 +52,9 @@ public class FriendshipInfoServiceImp implements FriendshipInfoService {
     public List<FriendshipInfo> updateFriendshipInfo(List<FriendshipInfo> friendshipInfoList) {
         return friendshipInfoRepository.saveAll(friendshipInfoList);
     }
+
+    @Override
+    public List<FriendshipInfo> findFriendshipByUserInfoId(Long userInfoId) {
+        return friendshipInfoRepository.findAllBySrcFriendshipUserInfoUserInfoIdAndRecordValidToDateIsNull(userInfoId);
+    }
 }

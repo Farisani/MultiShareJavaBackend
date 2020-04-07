@@ -1,6 +1,9 @@
 package za.co.multishare.business.service;
 
+import za.co.multishare.domain.entity.FriendshipInfo;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 public interface FriendsService {
 
@@ -13,4 +16,6 @@ public interface FriendsService {
                              Long friendShipInfoId,
                              LocalDateTime recordValidFromDate,
                              LocalDateTime recordValidToDate);
+
+    List<FriendshipInfo> findFriendships(Long userInfoId);
 }
