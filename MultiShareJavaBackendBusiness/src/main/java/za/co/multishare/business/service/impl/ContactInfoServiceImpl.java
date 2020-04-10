@@ -56,10 +56,9 @@ public class ContactInfoServiceImpl implements ContactInfoService {
 
         final List<ContactInfo> contactInfoList = new ArrayList<>();
 
-        contactInfoDtoList.forEach(contactInfoDto -> {
+        contactInfoDtoList.forEach(contactInfoDto ->
             contactInfoList.add(new ContactInfo(null, contactInfoDto.getContact(),
-                    contactInfoDto.getContactType(), recordValidFromDate, recordValidToDate, userInfo));
-        });
+                    contactInfoDto.getContactType(), recordValidFromDate, recordValidToDate, userInfo)));
 
         return contactInfoRepository.saveAll(contactInfoList);
     }
@@ -72,5 +71,10 @@ public class ContactInfoServiceImpl implements ContactInfoService {
     @Override
     public List<ContactInfo> search(final String searchQuery) {
         return contactInfoRepository.findByContactContainingAndRecordValidToDateIsNull(searchQuery);
+    }
+
+    @Override
+    public ContactInfo findActive(String searchQuery) {
+        return contactInfoRepository.findByContactAndRecordValidToDateIsNull(searchQuery);
     }
 }

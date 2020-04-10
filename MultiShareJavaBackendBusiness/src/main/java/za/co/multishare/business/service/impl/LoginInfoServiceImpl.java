@@ -39,4 +39,9 @@ public class LoginInfoServiceImpl implements LoginInfoService {
         loginInfo.setRecordValidToDate(recordValidToDate);
         loginInfoRepository.save(loginInfo);
     }
+
+    @Override
+    public LoginInfo getLoginInfo(Long userInfoId) {
+        return loginInfoRepository.findByUserInfoUserInfoIdAndRecordValidToDateIsNull(userInfoId);
+    }
 }
