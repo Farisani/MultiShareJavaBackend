@@ -1,6 +1,7 @@
 package za.co.multishare.business.service;
 
 import za.co.multishare.domain.dto.UserDetailsDto;
+import za.co.multishare.domain.entity.UserInfo;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface UserInfoDetailsRetrievalService {
     UserDetailsDto getUserDetails(Long userId);
 
     List<UserDetailsDto> searchForUsers(String searchQuery);
+
+    UserInfo searchForUserByContact(String contact);
 }

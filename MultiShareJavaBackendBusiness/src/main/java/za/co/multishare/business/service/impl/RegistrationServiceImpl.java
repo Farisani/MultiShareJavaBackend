@@ -2,6 +2,7 @@ package za.co.multishare.business.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import za.co.multishare.business.service.RoleManagerService;
 import za.co.multishare.domain.dto.RegistrationDto;
 import za.co.multishare.business.service.UserInfoService;
 import za.co.multishare.domain.dto.ContactInfoDto;
@@ -24,16 +25,19 @@ public class RegistrationServiceImpl implements RegistrationService {
     private final UserDetailService userDetailService;
     private final ContactInfoService contactInfoService;
     private final LoginInfoService loginInfoService;
+    private final RoleManagerService roleManagerService;
 
     @Autowired
     public RegistrationServiceImpl(final UserInfoService userInfoService,
                                    final UserDetailService userDetailService,
                                    final ContactInfoService contactInfoService,
-                                   final LoginInfoService loginInfoService) {
+                                   final LoginInfoService loginInfoService,
+                                   final RoleManagerService roleManagerService) {
         this.userInfoService = userInfoService;
         this.userDetailService = userDetailService;
         this.contactInfoService = contactInfoService;
         this.loginInfoService = loginInfoService;
+        this.roleManagerService = roleManagerService;
     }
 
     @Transactional
@@ -62,6 +66,9 @@ public class RegistrationServiceImpl implements RegistrationService {
         userDetailService.createUserInfoDetail(registrationDto.getTitle(), registrationDto.getSurname(),
                 registrationDto.getName(), registrationDto.getGender(), registrationDto.getLegalIdentityNumber(),
                 recordValidFromDate, recordValidToDate, userInfo);
+
+        roleManagerService.createRoleInfo(registrationDto.getRoles(), recordValidFromDate,
+                recordValidToDate, userInfo);
 
         return userInfo.getUserInfoId();
     }

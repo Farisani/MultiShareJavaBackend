@@ -26,4 +26,6 @@ public interface LoginInfoService {
      * @param recordValidToDate - date for deleting record
      */
     void deleteLoginInfo(Long loginInfoId, LocalDateTime recordValidToDate);
+
+    LoginInfo getLoginInfo(Long userInfoId);
 }
