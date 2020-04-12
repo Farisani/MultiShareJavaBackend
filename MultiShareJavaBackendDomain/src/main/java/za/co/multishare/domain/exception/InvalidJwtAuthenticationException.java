@@ -1,4 +1,4 @@
-package za.co.multishare.web.security.exception;
+package za.co.multishare.domain.exception;
 
 import org.springframework.security.core.AuthenticationException;
 

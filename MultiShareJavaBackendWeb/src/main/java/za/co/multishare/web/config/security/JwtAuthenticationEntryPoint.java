@@ -1,4 +1,4 @@
-package za.co.multishare.web.security.config;
+package za.co.multishare.web.config.security;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
@@ -12,8 +12,9 @@ import java.io.IOException;
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
 	@Override
-	public void commence(HttpServletRequest request, HttpServletResponse response,
-                         AuthenticationException authException) throws IOException {
+	public void commence(final HttpServletRequest request,
+						 final HttpServletResponse response,
+                         final AuthenticationException authException) throws IOException {
 		log.debug("Jwt authentication failed:" + authException);
 		response.sendError(HttpServletResponse.SC_UNAUTHORIZED	, "Jwt authentication failed");
 	}

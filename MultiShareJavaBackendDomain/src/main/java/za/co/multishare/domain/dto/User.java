@@ -1,4 +1,4 @@
-package za.co.multishare.web.entity;
+package za.co.multishare.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

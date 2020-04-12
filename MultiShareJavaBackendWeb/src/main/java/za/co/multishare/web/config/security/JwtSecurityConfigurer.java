@@ -1,4 +1,4 @@
-package za.co.multishare.web.security.config;
+package za.co.multishare.web.config.security;
 
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

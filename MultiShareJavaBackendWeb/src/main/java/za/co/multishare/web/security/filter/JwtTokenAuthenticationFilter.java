@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class JwtTokenAuthenticationFilter extends GenericFilterBean {
 
-    private JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
 
     public JwtTokenAuthenticationFilter(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
@@ -23,8 +23,7 @@ public class JwtTokenAuthenticationFilter extends GenericFilterBean {
     @Override
     public void doFilter(final ServletRequest request,
                          final ServletResponse response,
-                         final FilterChain filterChain)
-        throws IOException, ServletException {
+                         final FilterChain filterChain) throws IOException, ServletException {
 
         String token = jwtTokenProvider.resolveToken((HttpServletRequest) request);
         if (token != null && jwtTokenProvider.validateToken(token)) {

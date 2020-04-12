@@ -1,4 +1,4 @@
-package za.co.multishare.web.security.config;
+package za.co.multishare.web.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -7,7 +7,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import za.co.multishare.web.security.service.JwtTokenProvider;
 
 @Configuration
@@ -24,22 +23,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //@formatter:off
         http.httpBasic()
-                .disable()
-                .csrf().disable()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/auth/signin").permitAll()
-                .antMatchers(HttpMethod.GET, "/vehicles/**").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/vehicles/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/v1/vehicles/**").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers(HttpMethod.POST, "/api/auth/sign-in").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/registration/**").permitAll()
+                .antMatchers("/api/feed/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/api/friends/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/api/post/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/api/user-info/**").hasAnyRole("USER", "ADMIN")
                 .and()
+                .csrf().disable()
+                .formLogin().disable()
                 .apply(new JwtSecurityConfigurer(jwtTokenProvider));
-        //@formatter:on
     }
 }
 

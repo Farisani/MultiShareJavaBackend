@@ -72,4 +72,9 @@ public class UserInfoDetailsRetrievalServiceImpl implements UserInfoDetailsRetri
 
         return userDetailsDtoList;
     }
+
+    @Override
+    public UserInfo searchForUserByContact(String contact) {
+      return contactInfoService.findActive(contact).getUserInfo();
+    }
 }

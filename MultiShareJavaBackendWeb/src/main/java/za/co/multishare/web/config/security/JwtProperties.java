@@ -1,4 +1,4 @@
-package za.co.multishare.web.security.config;
+package za.co.multishare.web.config.security;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

@@ -12,8 +12,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-import za.co.multishare.web.security.config.JwtProperties;
-import za.co.multishare.web.security.exception.InvalidJwtAuthenticationException;
+import za.co.multishare.web.config.security.JwtProperties;
+import za.co.multishare.domain.exception.InvalidJwtAuthenticationException;
 import za.co.multishare.web.security.service.JwtTokenProvider;
 
 import javax.annotation.PostConstruct;
