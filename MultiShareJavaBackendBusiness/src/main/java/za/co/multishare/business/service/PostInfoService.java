@@ -1,5 +1,6 @@
 package za.co.multishare.business.service;
 
+import org.springframework.data.domain.Page;
 import za.co.multishare.domain.entity.PostInfo;
 import za.co.multishare.domain.entity.PostInfoDetail;
 import za.co.multishare.domain.entity.PostInfoDetailResource;
@@ -28,13 +29,15 @@ public interface PostInfoService {
                                                         LocalDateTime recordValidFromDate,
                                                         LocalDateTime recordValidToDate);
 
-    List<PostInfo> findAllUserPostInfo(Long userId,
-                                       Integer pageNumber,
-                                       Integer pageSize);
+    Page<PostInfo> findAllUserPostInfo(Long userId,
+                                      Integer pageNumber,
+                                      Integer pageSize);
 
     List<PostInfo> findAllUserPostInfo(Long userInfoId);
 
     PostInfoDetail findActivePostInfoDetailByPostInfoId(Long postInfoDetailId);
 
     List<PostInfoDetailResource> findPostInfoDetailResourcesByPostInfoDetailId(Long postInfoDetailId);
+
+    void deletePost(Long postId);
 }

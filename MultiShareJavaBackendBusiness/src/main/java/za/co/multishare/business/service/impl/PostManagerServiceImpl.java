@@ -1,6 +1,7 @@
 package za.co.multishare.business.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import za.co.multishare.business.service.PostInfoService;
 import za.co.multishare.business.service.PostManagerService;
@@ -51,14 +52,12 @@ public class PostManagerServiceImpl implements PostManagerService {
                                           final Integer pageNumber,
                                           final Integer pageSize) {
 
-        getUserInfo(userId);
-
         final List<PostDto> postDtoList = new ArrayList<>();
 
-        final List<PostInfo> postInfoList = postInfoService.findAllUserPostInfo(userId, pageNumber,
+        final Page<PostInfo> postInfoPage = postInfoService.findAllUserPostInfo(userId, pageNumber,
                 pageSize);
 
-        postInfoList.forEach(postInfo -> {
+        postInfoPage.toList().forEach(postInfo -> {
             final PostInfoDetail postInfoDetail = retrievePostInfoDetail(postInfo.getPostInfoId());
 
             final List<PostInfoDetailResource> postInfoDetailResourceList =
@@ -66,8 +65,17 @@ public class PostManagerServiceImpl implements PostManagerService {
 
             postDtoList.add(buildPostDto(postInfo, postInfoDetail, postInfoDetailResourceList));
         });
+        return new RetrievePostDto(postDtoList, postInfoPage.hasNext());
+    }
 
-        return new RetrievePostDto(postDtoList);
+    @Override
+    public Boolean deletePost(Long postId) {
+        try {
+            postInfoService.deletePost(postId);
+            return Boolean.TRUE;
+        } catch (Exception exception) {
+            return Boolean.FALSE;
+        }
     }
 
     private PostDto buildPostDto(final PostInfo postInfo,
@@ -77,6 +85,7 @@ public class PostManagerServiceImpl implements PostManagerService {
         final PostDto postDto = new PostDto(postInfo.getPostInfoId(),
                 postInfoDetail.getTitle(),
                 postInfoDetail.getPostBody(),
+                postInfo.getRecordValidFromDate(),
                 postInfoDetailResourceList.stream()
                         .map(PostInfoDetailResource::getResource)
                         .collect(Collectors.toList()));

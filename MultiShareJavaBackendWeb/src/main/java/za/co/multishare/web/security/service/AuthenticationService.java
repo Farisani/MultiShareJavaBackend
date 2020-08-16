@@ -11,5 +11,5 @@ public interface AuthenticationService {
      * @param password - user's logging password
      * @return a map with users informationa and token
      */
-    Map<Object, Object> authenticate(String username, String password);
+    Map<String, String> authenticate(String username, String password);
 }

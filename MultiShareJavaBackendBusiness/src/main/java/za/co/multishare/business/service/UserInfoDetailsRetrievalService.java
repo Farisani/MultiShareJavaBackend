@@ -17,4 +17,6 @@ public interface UserInfoDetailsRetrievalService {
     List<UserDetailsDto> searchForUsers(String searchQuery);
 
     UserInfo searchForUserByContact(String contact);
+
+    UserDetailsDto updateUserDetails(UserDetailsDto userDetailsDto);
 }

@@ -43,4 +43,6 @@ public interface ContactInfoService {
     List<ContactInfo> search(String searchQuery);
 
     ContactInfo findActive(String searchQuery);
+
+    List<ContactInfo> updateContactInfos(List<ContactInfo> contactInfoList);
 }

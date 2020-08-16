@@ -39,7 +39,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public Map<Object, Object> authenticate(final String username,
+    public Map<String, String> authenticate(final String username,
                                             final String password) {
         try {
 
@@ -52,9 +52,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                     .collect(Collectors.toList());
 
             final String token = jwtTokenProvider.createToken(username, roles);
-            final Map<Object, Object> model = new HashMap<>();
+            final Map<String, String> model = new HashMap<>();
 
-            model.put("userId", userInfo.getUserInfoId());
+            model.put("userId", userInfo.getUserInfoId().toString());
             model.put("token", token);
             return model;
         } catch (AuthenticationException exception) {

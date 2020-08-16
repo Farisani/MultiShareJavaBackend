@@ -14,4 +14,8 @@ public class RetrievePostDto {
     @Getter
     @Setter
     private List<PostDto> postDtoList;
+
+    @Getter
+    @Setter
+    private Boolean hasNext;
 }

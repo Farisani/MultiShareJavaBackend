@@ -77,4 +77,9 @@ public class ContactInfoServiceImpl implements ContactInfoService {
     public ContactInfo findActive(String searchQuery) {
         return contactInfoRepository.findByContactAndRecordValidToDateIsNull(searchQuery);
     }
+
+    @Override
+    public List<ContactInfo> updateContactInfos(List<ContactInfo> contactInfoList) {
+        return contactInfoRepository.saveAll(contactInfoList);
+    }
 }

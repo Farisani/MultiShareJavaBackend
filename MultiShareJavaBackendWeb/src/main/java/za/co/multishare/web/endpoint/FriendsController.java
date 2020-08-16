@@ -15,7 +15,7 @@ import za.co.multishare.domain.dto.FriendRequestDto;
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping("/api/friends")
+@RequestMapping("/api/friends/")
 public class FriendsController {
 
     private final FriendsService friendsService;

@@ -3,6 +3,7 @@ package za.co.multishare.web.endpoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,11 +40,18 @@ public class PostController {
     }
 
     @GetMapping("/get/{userId}")
-    private ResponseEntity<RetrievePostDto> getPosts(@PathVariable final Long userId,
+    public ResponseEntity<RetrievePostDto> getPosts(@PathVariable final Long userId,
                                                      @RequestParam final Integer pageNumber,
                                                      @RequestParam final Integer pageSize) {
         final RetrievePostDto retrievePostDto = postManagerService.getPosts(userId, pageNumber, pageSize);
 
         return new ResponseEntity<>(retrievePostDto, HttpStatus.OK);
+    }
+
+    @GetMapping("/delete/{postId}")
+    public ResponseEntity<Boolean> deletePost(@PathVariable final Long postId) {
+        final Boolean result = postManagerService.deletePost(postId);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

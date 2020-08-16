@@ -3,10 +3,10 @@ package za.co.multishare.business.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import za.co.multishare.business.service.impl.FriendsServiceImpl;
 import za.co.multishare.domain.entity.PostInfo;
 import za.co.multishare.domain.entity.PostInfoDetail;
 import za.co.multishare.domain.entity.PostInfoDetailResource;
@@ -91,20 +91,20 @@ public class PostInfoServiceImpl implements PostInfoService {
     }
 
     @Override
-    public List<PostInfo> findAllUserPostInfo(final Long userId,
+    public Page<PostInfo> findAllUserPostInfo(final Long userId,
                                               final Integer pageNumber,
                                               final Integer pageSize) {
 
         //todo implement pagination
         final Pageable page = PageRequest.of(pageNumber, pageSize);
 
-        final List<PostInfo> postInfoList = postInfoRepository
-                .findByUserInfoUserInfoIdAndRecordValidToDateIsNull(userId);
+        final Page<PostInfo> postInfoPage = postInfoRepository
+                .findByUserInfoUserInfoIdAndRecordValidToDateIsNull(userId, page);
 
-        LOGGER.info("\n postInfoList is empty: " + postInfoList.isEmpty() + " \n");
-        LOGGER.info("\n postInfoList: \n" +  postInfoList.toString() + " \n");
+        LOGGER.info("\n postInfoList is empty: " + postInfoPage.isEmpty() + " \n");
+        LOGGER.info("\n postInfoList: \n" +  postInfoPage.toString() + " \n");
 
-        return postInfoList;
+        return postInfoPage;
     }
 
     @Override
@@ -123,5 +123,13 @@ public class PostInfoServiceImpl implements PostInfoService {
 
         return postInfoDetailResourceRepository
                 .findByPostInfoDetailPostInfoDetailIdAndRecordValidToDateIsNull(postInfoDetailId);
+    }
+
+    @Override
+    @Transactional
+    public void deletePost(Long postId) {
+        postInfoDetailResourceRepository.deleteByPostInfoDetailPostInfoPostInfoId(postId);
+        postInfoDetailsRepository.deleteByPostInfoPostInfoId(postId);
+        postInfoRepository.deleteById(postId);
     }
 }

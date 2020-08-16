@@ -17,4 +17,6 @@ public interface PostManagerService {
     RetrievePostDto getPosts(Long userId,
                              Integer pageNumber,
                              Integer pageSize);
+
+    Boolean deletePost(Long postId);
 }

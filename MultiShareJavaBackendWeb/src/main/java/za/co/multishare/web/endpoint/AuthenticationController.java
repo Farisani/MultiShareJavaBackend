@@ -24,11 +24,11 @@ public class AuthenticationController {
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<Map<Object, Object>> signIn(@RequestBody final AuthenticationRequest authenticationRequest) {
+    public ResponseEntity<Map<String, String>> signIn(@RequestBody final AuthenticationRequest authenticationRequest) {
 
-        Map<Object, Object> authInfo = authenticateService
+        Map<String, String> authInfo = authenticateService
                 .authenticate(authenticationRequest.getUsername(),
-                        authenticationRequest.getUsername());
+                        authenticationRequest.getPassword());
 
         return new ResponseEntity<>(authInfo, HttpStatus.OK);
     }

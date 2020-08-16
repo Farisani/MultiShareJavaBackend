@@ -1,17 +1,21 @@
 package za.co.multishare.business.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import za.co.multishare.business.service.ContactInfoService;
 import za.co.multishare.business.service.UserDetailService;
 import za.co.multishare.business.service.UserInfoDetailsRetrievalService;
 import za.co.multishare.domain.dto.ContactDetailsInfoDto;
+import za.co.multishare.domain.dto.ContactInfoDto;
 import za.co.multishare.domain.dto.UserDetailsDto;
 import za.co.multishare.domain.entity.ContactInfo;
 import za.co.multishare.domain.entity.UserInfo;
 import za.co.multishare.domain.entity.UserInfoDetail;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -75,6 +79,54 @@ public class UserInfoDetailsRetrievalServiceImpl implements UserInfoDetailsRetri
 
     @Override
     public UserInfo searchForUserByContact(String contact) {
-      return contactInfoService.findActive(contact).getUserInfo();
+        return contactInfoService.findActive(contact).getUserInfo();
+    }
+
+    @Override
+    @Transactional
+    public UserDetailsDto updateUserDetails(UserDetailsDto userDetailsDto) {
+
+        final List<ContactInfo> contactInfoList = contactInfoService.findActive(userDetailsDto.getId());
+
+        contactInfoList.forEach(contactInfo -> {
+            final String updateContact = userDetailsDto.getContactDetailsInfoDtoList()
+                    .stream()
+                    .filter(contactDetailsInfoDto -> contactInfo.getContactType()
+                            .equalsIgnoreCase(contactDetailsInfoDto.getContactType()))
+                    .findAny().orElseThrow(() -> new RuntimeException("Failed to resolve contact info"))
+                    .getContact();
+            contactInfo.setContact(updateContact);
+        });
+
+        final List<ContactInfo> contactInfoListResults = contactInfoService.updateContactInfos(contactInfoList);
+
+        UserInfoDetail userInfoDetail = userDetailService.findActive(userDetailsDto.getId());
+        userInfoDetail.setTitle(userDetailsDto.getTitle());
+        userInfoDetail.setName(userDetailsDto.getName());
+        userInfoDetail.setSurname(userDetailsDto.getSurname());
+        userInfoDetail.setLegalIdentityNumber(userDetailsDto.getLegalIdentityNumber());
+        userInfoDetail.setGender(userDetailsDto.getGender());
+
+         userInfoDetail = userDetailService.updateUserInfoDetail(Collections.singletonList(userInfoDetail)).get(0);
+
+        userDetailsDto.setTitle(userInfoDetail.getTitle());
+        userDetailsDto.setName(userInfoDetail.getName());
+        userDetailsDto.setSurname(userInfoDetail.getSurname());
+        userDetailsDto.setLegalIdentityNumber(userDetailsDto.getLegalIdentityNumber());
+        userDetailsDto.setGender(userInfoDetail.getGender());
+
+        userDetailsDto.getContactDetailsInfoDtoList().forEach(contactDetailsInfoDto -> {
+            final String updateContact = contactInfoListResults
+                    .stream()
+                    .filter(contactInfo -> contactInfo
+                            .getContactType()
+                            .equalsIgnoreCase(contactDetailsInfoDto.getContactType()))
+                    .findAny()
+                    .orElseThrow(() -> new RuntimeException("Failed to resolve contact info dto"))
+                    .getContact();
+            contactDetailsInfoDto.setContact(updateContact);
+        });
+
+        return userDetailsDto;
     }
 }

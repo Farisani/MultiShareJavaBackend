@@ -9,4 +9,6 @@ import za.co.multishare.domain.entity.PostInfoDetail;
 public interface PostInfoDetailsRepository extends JpaRepository<PostInfoDetail, Long> {
 
     PostInfoDetail findByPostInfoPostInfoIdAndRecordValidToDateIsNull(@Param("postInfoId") Long postInfoIs);
+
+    void deleteByPostInfoPostInfoId(@Param("postInfoId") Long postInfoId);
 }
