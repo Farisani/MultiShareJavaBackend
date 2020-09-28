@@ -124,4 +124,9 @@ public class FriendsServiceImpl implements FriendsService {
 
         return friendshipInfoService.findFriendshipByUserInfoId(userInfoId, pageNumber, pageSize);
     }
+
+    @Override
+    public List<FriendshipInfo> findFriendships(Long userInfoId) {
+        return friendshipInfoService.findFriendshipByUserInfoId(userInfoId);
+    }
 }

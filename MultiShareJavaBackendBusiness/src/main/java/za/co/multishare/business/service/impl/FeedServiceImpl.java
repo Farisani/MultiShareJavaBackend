@@ -127,7 +127,7 @@ public class FeedServiceImpl implements FeedService {
 
         userInfoList.add(sourceUserInfo);
 
-        final List<FriendshipInfo> friendshipInfoList = friendsService.findFriendships(userInfoId, null, null);
+        final List<FriendshipInfo> friendshipInfoList = friendsService.findFriendships(userInfoId);
 
         friendshipInfoList.forEach(friendshipInfo -> userInfoList.add(friendshipInfo.getDestFriendshipUserInfo()));
 

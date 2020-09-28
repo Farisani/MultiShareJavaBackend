@@ -20,4 +20,6 @@ public interface FriendsService {
     List<FriendshipInfo> findFriendships(Long userInfoId,
                                          Integer pageNumber,
                                          Integer pageSize);
+
+    List<FriendshipInfo> findFriendships(Long userInfoId);
 }

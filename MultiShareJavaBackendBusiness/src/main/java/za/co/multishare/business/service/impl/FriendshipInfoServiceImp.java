@@ -60,4 +60,9 @@ public class FriendshipInfoServiceImp implements FriendshipInfoService {
         final Pageable page = PageRequest.of(pageNumber, pageSize);
         return friendshipInfoRepository.findAllBySrcFriendshipUserInfoUserInfoIdAndRecordValidToDateIsNull(userInfoId, page);
     }
+
+    @Override
+    public List<FriendshipInfo> findFriendshipByUserInfoId(Long userInfoId) {
+        return friendshipInfoRepository.findAllBySrcFriendshipUserInfoUserInfoIdAndRecordValidToDateIsNull(userInfoId);
+    }
 }
