@@ -1,6 +1,8 @@
 package za.co.multishare.business.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import za.co.multishare.business.service.FriendshipInfoService;
 import za.co.multishare.domain.constant.FriendshipInfoStateEnum;
@@ -54,7 +56,8 @@ public class FriendshipInfoServiceImp implements FriendshipInfoService {
     }
 
     @Override
-    public List<FriendshipInfo> findFriendshipByUserInfoId(Long userInfoId) {
-        return friendshipInfoRepository.findAllBySrcFriendshipUserInfoUserInfoIdAndRecordValidToDateIsNull(userInfoId);
+    public List<FriendshipInfo> findFriendshipByUserInfoId(Long userInfoId, Integer pageNumber, Integer pageSize) {
+        final Pageable page = PageRequest.of(pageNumber, pageSize);
+        return friendshipInfoRepository.findAllBySrcFriendshipUserInfoUserInfoIdAndRecordValidToDateIsNull(userInfoId, page);
     }
 }

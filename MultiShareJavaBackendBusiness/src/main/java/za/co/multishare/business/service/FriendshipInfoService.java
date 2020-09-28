@@ -23,5 +23,5 @@ public interface FriendshipInfoService {
 
     List<FriendshipInfo> updateFriendshipInfo(List<FriendshipInfo> friendshipInfoList);
 
-    List<FriendshipInfo> findFriendshipByUserInfoId(Long userInfoId);
+    List<FriendshipInfo> findFriendshipByUserInfoId(Long userInfoId, Integer pageNumber, Integer pageSize);
 }

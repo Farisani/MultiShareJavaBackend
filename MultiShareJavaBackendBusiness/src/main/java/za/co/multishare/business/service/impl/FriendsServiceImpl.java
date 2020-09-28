@@ -3,6 +3,8 @@ package za.co.multishare.business.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import za.co.multishare.business.service.FriendsService;
 import za.co.multishare.business.service.FriendshipInfoService;
@@ -116,7 +118,10 @@ public class FriendsServiceImpl implements FriendsService {
     }
 
     @Override
-    public List<FriendshipInfo> findFriendships(Long userInfoId) {
-        return friendshipInfoService.findFriendshipByUserInfoId(userInfoId);
+    public List<FriendshipInfo> findFriendships(final Long userInfoId,
+                                                final Integer pageNumber,
+                                                final Integer pageSize) {
+
+        return friendshipInfoService.findFriendshipByUserInfoId(userInfoId, pageNumber, pageSize);
     }
 }

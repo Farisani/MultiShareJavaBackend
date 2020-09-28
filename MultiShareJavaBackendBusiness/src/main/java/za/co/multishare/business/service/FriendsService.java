@@ -17,5 +17,7 @@ public interface FriendsService {
                              LocalDateTime recordValidFromDate,
                              LocalDateTime recordValidToDate);
 
-    List<FriendshipInfo> findFriendships(Long userInfoId);
+    List<FriendshipInfo> findFriendships(Long userInfoId,
+                                         Integer pageNumber,
+                                         Integer pageSize);
 }
