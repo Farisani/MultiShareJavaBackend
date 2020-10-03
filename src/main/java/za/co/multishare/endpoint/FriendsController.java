@@ -52,6 +52,13 @@ public class FriendsController {
         return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
     }
 
+    @GetMapping("search/{userId}")
+    public ResponseEntity<List<FriendDto>> search(@PathVariable final Long userId,
+                                                  @RequestParam final String searchCriteria,
+                                                  @RequestParam final String searchQuery) {
+        return new ResponseEntity<>(friendsService.search(userId, searchCriteria, searchQuery), HttpStatus.OK);
+    }
+
     @GetMapping("/get/friendships/{userId}")
     public ResponseEntity<List<FriendDto>> getFriends(@PathVariable final Long userId,
                                                       @RequestParam final Integer pageNumber,
@@ -61,7 +68,12 @@ public class FriendsController {
         List<FriendDto> friendDtoList = new ArrayList<>();
 
         friendshipInfoList.forEach(friendshipInfo -> {
-           final UserInfo friendshipFriendUserInfo;
+            final UserInfo friendshipFriendUserInfo;
+            boolean canAccept = false;
+
+            if (friendshipInfo.getDestFriendshipUserInfo().getUserInfoId().equals(userId)) {
+                canAccept = true;
+            }
 
             if (!friendshipInfo.getSrcFriendshipUserInfo().getUserInfoId().equals(userId)) {
                 friendshipFriendUserInfo = friendshipInfo.getSrcFriendshipUserInfo();
@@ -74,10 +86,17 @@ public class FriendsController {
             friendDtoList.add(new FriendDto(userInfoDetail.getUserInfo().getUserInfoId(),
                     userInfoDetail.getSurname(),
                     userInfoDetail.getName(),
-                    friendshipInfo.getFriendshipInfoStatus()));
+                    friendshipInfo.getFriendshipInfoStatus(),
+                    canAccept)
+            );
         });
 
         return new ResponseEntity<>(friendDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/get/friendships/suggestions/{userId}")
+    public ResponseEntity<List<FriendDto>> getFriendSuggestion(@PathVariable final Long userId) {
+        return new ResponseEntity<>(friendsService.getFriendSuggestions(userId), HttpStatus.OK);
     }
 
 }

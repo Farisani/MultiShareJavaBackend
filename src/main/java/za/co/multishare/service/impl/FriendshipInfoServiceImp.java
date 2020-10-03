@@ -9,6 +9,8 @@ import za.co.multishare.domain.constant.FriendshipInfoStateEnum;
 import za.co.multishare.domain.entity.FriendshipInfo;
 import za.co.multishare.domain.entity.UserInfo;
 import za.co.multishare.repository.FriendshipInfoRepository;
+import za.co.multishare.service.UserInfoDetailsRetrievalService;
+import za.co.multishare.service.UserInfoService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,10 +19,13 @@ import java.util.List;
 public class FriendshipInfoServiceImp implements FriendshipInfoService {
 
     private final FriendshipInfoRepository friendshipInfoRepository;
+    private final UserInfoDetailsRetrievalService userInfoDetailsRetrievalService;
 
     @Autowired
-    public FriendshipInfoServiceImp(final FriendshipInfoRepository friendshipInfoRepository) {
+    public FriendshipInfoServiceImp(final FriendshipInfoRepository friendshipInfoRepository,
+                                    final UserInfoDetailsRetrievalService userInfoDetailsRetrievalService) {
         this.friendshipInfoRepository = friendshipInfoRepository;
+        this.userInfoDetailsRetrievalService = userInfoDetailsRetrievalService;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package za.co.multishare.service;
 
+import za.co.multishare.domain.dto.FriendDto;
 import za.co.multishare.domain.entity.FriendshipInfo;
 
 import java.time.LocalDateTime;
@@ -22,4 +23,8 @@ public interface FriendsService {
                                          Integer pageSize);
 
     List<FriendshipInfo> findFriendships(Long userInfoId);
+
+    List<FriendDto> getFriendSuggestions(Long userId);
+
+    List<FriendDto> search(Long userInfoId, String searchCriteria, String searchQuery);
 }

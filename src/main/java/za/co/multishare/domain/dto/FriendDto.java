@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FriendDto {
 
-    Long userId;
-    String surname;
-    String name;
-    String friendshipStatus;
+    private Long userId;
+    private String surname;
+    private String name;
+    private String friendshipStatus;
+    private Boolean canAccept;
 }
