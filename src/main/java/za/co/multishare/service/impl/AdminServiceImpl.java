@@ -65,11 +65,24 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<AdminUserDetailsDto> getAll(Integer pageNumber, Integer pageSize) {
-        return null;
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        final List<UserInfo> userInfoList = userInfoRepository.findAll(pageable).toList();
+
+
+        final List<AdminUserDetailsDto> adminUserDetailsDtoList = userInfoList.stream().map(userInfo -> {
+            final UserInfoDetail userInfoDetail = userInfoDetailRepository
+                    .findByUserInfoUserInfoIdAndRecordValidToRecordIsNull(userInfo.getUserInfoId());
+            return new AdminUserDetailsDto(userInfo.getUserInfoId(),
+                    userInfoDetail.getSurname(),
+                    userInfoDetail.getName(),
+                    userInfo.getRecordValidFromDate());
+        }).collect(Collectors.toList());
+
+        return adminUserDetailsDtoList;
     }
 
     @Override
     public Integer getTotalNumberOfUsers() {
-        return null;
+        return userInfoRepository.findAll().size();
     }
 }
