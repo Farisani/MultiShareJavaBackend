@@ -18,5 +18,7 @@ public interface ContactInfoRepository extends JpaRepository<ContactInfo, Long> 
 
     List<ContactInfo> findByContactContainingAndRecordValidToDateIsNull(@Param("contact") String contact);
 
+    List<ContactInfo> findByContactContainingAndRecordValidToDateIsNull(@Param("contact") String contact, Pageable pageable);
+
     ContactInfo findByContactAndRecordValidToDateIsNull(@Param("contact")String contact);
 }
