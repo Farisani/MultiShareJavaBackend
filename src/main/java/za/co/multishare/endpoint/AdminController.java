@@ -39,7 +39,7 @@ public class AdminController {
                 HttpStatus.OK);
     }
 
-    @GetMapping("search-by-registration-date")
+    @GetMapping("searchByRegistrationDate")
     public ResponseEntity<List<AdminUserDetailsDto>> searchByRegistrationDate(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate startDate,
                                                                               @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate endDate,
                                                                               @RequestParam final Integer pageNumber,
