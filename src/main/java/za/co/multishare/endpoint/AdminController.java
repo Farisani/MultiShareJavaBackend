@@ -1,6 +1,7 @@
 package za.co.multishare.endpoint;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import za.co.multishare.domain.dto.AdminUserDetailsDto;
 import za.co.multishare.service.AdminService;
 
+import java.time.LocalDate;
+
+import java.time.LocalTime;
 import java.util.List;
 
 @RestController
@@ -33,5 +37,14 @@ public class AdminController {
                 pageNumber,
                 pageSize),
                 HttpStatus.OK);
+    }
+
+    @GetMapping("search-by-registration-date")
+    public ResponseEntity<List<AdminUserDetailsDto>> searchByRegistrationDate(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate startDate,
+                                                                              @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate endDate,
+                                                                              @RequestParam final Integer pageNumber,
+                                                                              @RequestParam final Integer pageSize) {
+        return new ResponseEntity<>(adminService.searchByRegistrationDates(startDate.atStartOfDay(),
+                endDate.plusDays(1).atTime(LocalTime.MIDNIGHT), pageNumber, pageSize), HttpStatus.OK);
     }
 }

@@ -13,6 +13,7 @@ import za.co.multishare.repository.UserInfoDetailRepository;
 import za.co.multishare.repository.UserInfoRepository;
 import za.co.multishare.service.AdminService;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,6 +51,28 @@ public class AdminServiceImpl implements AdminService {
                     .findByNameContainingOrSurnameContainingAndRecordValidToRecordIsNull(searchQuery, searchQuery, pageable)
                     .stream().map(UserInfoDetail::getUserInfo).collect(Collectors.toList()));
         }
+
+        final List<AdminUserDetailsDto> adminUserDetailsDtoList = userInfoList.stream().map(userInfo -> {
+            final UserInfoDetail userInfoDetail = userInfoDetailRepository
+                    .findByUserInfoUserInfoIdAndRecordValidToRecordIsNull(userInfo.getUserInfoId());
+            return new AdminUserDetailsDto(userInfo.getUserInfoId(),
+                    userInfoDetail.getSurname(),
+                    userInfoDetail.getName(),
+                    userInfo.getRecordValidFromDate());
+        }).collect(Collectors.toList());
+
+        return adminUserDetailsDtoList;
+    }
+
+    @Override
+    public List<AdminUserDetailsDto> searchByRegistrationDates(LocalDateTime startDate,
+                                                               LocalDateTime endDate,
+                                                               Integer pageNumber,
+                                                               Integer pageSize) {
+
+        final Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        final List<UserInfo> userInfoList = userInfoRepository.findUserInfoByRecordValidFromDateBetweenStartDateAndEndDate(startDate,
+                endDate, pageable);
 
         final List<AdminUserDetailsDto> adminUserDetailsDtoList = userInfoList.stream().map(userInfo -> {
             final UserInfoDetail userInfoDetail = userInfoDetailRepository
