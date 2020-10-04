@@ -1,5 +1,6 @@
 package za.co.multishare.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,9 +20,18 @@ import java.util.stream.Collectors;
 @Service
 public class AdminServiceImpl implements AdminService {
 
-    private UserInfoRepository userInfoRepository;
-    private UserInfoDetailRepository userInfoDetailRepository;
-    private ContactInfoRepository contactInfoRepository;
+    private final UserInfoRepository userInfoRepository;
+    private final UserInfoDetailRepository userInfoDetailRepository;
+    private final ContactInfoRepository contactInfoRepository;
+
+    @Autowired
+    public AdminServiceImpl(final UserInfoRepository userInfoRepository,
+                            final UserInfoDetailRepository userInfoDetailRepository,
+                            final ContactInfoRepository contactInfoRepository) {
+        this.userInfoRepository = userInfoRepository;
+        this.userInfoDetailRepository = userInfoDetailRepository;
+        this.contactInfoRepository = contactInfoRepository;
+    }
 
     @Override
     public List<AdminUserDetailsDto> searchForUsers(String searchCriteria,
