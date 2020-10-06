@@ -19,5 +19,7 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
     List<UserInfo> findUserInfoByRecordValidFromDateBetweenStartDateAndEndDate(@Param("startDate") LocalDateTime startDate,
                                                                                @Param("endDate") LocalDateTime endDate,
                                                                                Pageable pageable);
+
+    void deleteByUserInfoId(@Param("userInfoId") Long userInfoId);
 }
 

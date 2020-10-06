@@ -11,4 +11,6 @@ public interface PostInfoDetailsRepository extends JpaRepository<PostInfoDetail,
     PostInfoDetail findByPostInfoPostInfoIdAndRecordValidToDateIsNull(@Param("postInfoId") Long postInfoIs);
 
     void deleteByPostInfoPostInfoId(@Param("postInfoId") Long postInfoId);
+
+    void deleteByPostInfoUserInfoUserInfoId(@Param("userInfoId") Long userId);
 }

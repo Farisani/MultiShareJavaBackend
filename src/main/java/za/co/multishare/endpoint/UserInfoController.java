@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import za.co.multishare.service.UserDeleteService;
 import za.co.multishare.service.UserInfoDetailsRetrievalService;
 import za.co.multishare.domain.dto.UserDetailsDto;
 
@@ -20,10 +21,13 @@ import java.util.List;
 public class UserInfoController {
 
     private final UserInfoDetailsRetrievalService userInfoDetailsRetrievalService;
+    private final UserDeleteService userDeleteService;
 
     @Autowired
-    public UserInfoController(final UserInfoDetailsRetrievalService userInfoDetailsRetrievalService) {
+    public UserInfoController(final UserInfoDetailsRetrievalService userInfoDetailsRetrievalService,
+                              final UserDeleteService userDeleteService) {
         this.userInfoDetailsRetrievalService = userInfoDetailsRetrievalService;
+        this.userDeleteService = userDeleteService;
     }
 
     @GetMapping("/get/details/{userId}")
@@ -45,5 +49,10 @@ public class UserInfoController {
         final UserDetailsDto userDetailsDtoResults = userInfoDetailsRetrievalService.updateUserDetails(userDetailsDto);
 
         return new ResponseEntity<>(userDetailsDtoResults, HttpStatus.OK);
+    }
+
+    @GetMapping("/delete/{userId}")
+    public ResponseEntity<Boolean> deleteUser(@PathVariable final Long userId) {
+        return new ResponseEntity<>(userDeleteService.deleteUser(userId), HttpStatus.OK);
     }
 }

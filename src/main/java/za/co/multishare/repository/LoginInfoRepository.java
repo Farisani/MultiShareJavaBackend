@@ -9,4 +9,7 @@ import za.co.multishare.domain.entity.LoginInfo;
 public interface LoginInfoRepository extends JpaRepository<LoginInfo, Long> {
 
     LoginInfo findByUserInfoUserInfoIdAndRecordValidToDateIsNull(@Param("userInfoId") Long userInfoId);
+
+    void deleteByUserInfoUserInfoId(@Param("userInfoId") Long userInfoId);
+
 }

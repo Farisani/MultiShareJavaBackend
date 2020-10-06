@@ -16,4 +16,6 @@ public interface PostInfoRepository extends JpaRepository<PostInfo, Long> {
                                                                       Pageable pageable);
 
     List<PostInfo> findByUserInfoUserInfoIdAndRecordValidToDateIsNull(@Param("userInfoId") Long userInfoId);
+
+    void deleteByUserInfoUserInfoId(@Param("userInfoId") Long userInfoId);
 }

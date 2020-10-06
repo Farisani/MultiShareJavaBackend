@@ -22,4 +22,6 @@ public interface UserInfoDetailRepository extends JpaRepository<UserInfoDetail, 
     List<UserInfoDetail> findByNameContainingOrSurnameContainingAndRecordValidToRecordIsNull(@Param("searchQuerySurname") String surnameQuery,
                                                                                              @Param("searchQueryName") String nameQuery,
                                                                                              Pageable pageable);
+
+    void deleteByUserInfoUserInfoId(@Param("userInfoId") Long userInfoId);
 }

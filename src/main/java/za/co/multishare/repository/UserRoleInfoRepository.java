@@ -11,4 +11,6 @@ import java.util.List;
 public interface UserRoleInfoRepository extends JpaRepository<UserRoleInfo, Long> {
 
     List<UserRoleInfo> findByUserInfoUserInfoIdAndRecordValidToDateIsNull(@Param("userInfoId")Long userInfoId);
+
+    void deleteByUserInfoUserInfoId(@Param("userInfoId") Long userInfoId);
 }

@@ -15,4 +15,6 @@ public interface FriendshipInfoRepository extends JpaRepository<FriendshipInfo, 
                                                                                             Pageable page);
 
     List<FriendshipInfo> findAllBySrcFriendshipUserInfoUserInfoIdAndRecordValidToDateIsNull(@Param("userInfoId") Long userInfoId);
+
+    void deleteByDestFriendshipUserInfoUserInfoIdOrSrcFriendshipUserInfoUserInfoId(@Param("userInfoId") Long userInfoId, @Param("userInfoId") Long userInfoId2);
 }
