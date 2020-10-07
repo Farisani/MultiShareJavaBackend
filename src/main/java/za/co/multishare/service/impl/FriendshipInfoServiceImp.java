@@ -46,7 +46,8 @@ public class FriendshipInfoServiceImp implements FriendshipInfoService {
                                                    final UserInfo userInfoTwo) {
 
         return friendshipInfoRepository
-                .findAllBySrcFriendshipUserInfoUserInfoIdAndRecordValidToDateIsNull(userInfoOne.getUserInfoId());
+                .findAllBySrcFriendshipUserInfoUserInfoIdAndRecordValidToDateIsNull(
+                        userInfoOne.getUserInfoId());
 
     }
 
