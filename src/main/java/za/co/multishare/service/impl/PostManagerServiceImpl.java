@@ -69,6 +69,11 @@ public class PostManagerServiceImpl implements PostManagerService {
     }
 
     @Override
+    public PostDto getPost(Long postId) {
+        return null;
+    }
+
+    @Override
     public Boolean deletePost(Long postId) {
         try {
             postInfoService.deletePost(postId);

@@ -1,5 +1,6 @@
 package za.co.multishare.service;
 
+import za.co.multishare.domain.dto.PostDto;
 import za.co.multishare.domain.dto.RetrievePostDto;
 
 import java.time.LocalDateTime;
@@ -17,6 +18,8 @@ public interface PostManagerService {
     RetrievePostDto getPosts(Long userId,
                              Integer pageNumber,
                              Integer pageSize);
+
+    PostDto getPost(Long postId);
 
     Boolean deletePost(Long postId);
 }

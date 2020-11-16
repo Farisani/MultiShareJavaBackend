@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import za.co.multishare.domain.dto.PostDto;
 import za.co.multishare.domain.entity.PostInfo;
 import za.co.multishare.domain.entity.PostInfoDetail;
 import za.co.multishare.domain.entity.PostInfoDetailResource;
@@ -131,5 +132,13 @@ public class PostInfoServiceImpl implements PostInfoService {
         postInfoDetailResourceRepository.deleteByPostInfoDetailPostInfoPostInfoId(postId);
         postInfoDetailsRepository.deleteByPostInfoPostInfoId(postId);
         postInfoRepository.deleteById(postId);
+    }
+
+    @Override
+    public PostDto getPost(Long postId) {
+        return postInfoRepository.findById(postId).map(postInfo -> {
+            final PostInfoDetail postInfoDetail = postInfoDetailsRepository.findByPostInfoPostInfoIdAndRecordValidToDateIsNull(postId);
+          return new PostDto(postInfo.getPostInfoId(), postInfoDetail.getTitle(), postInfoDetail.getPostBody(), postInfo.getRecordValidFromDate(), null);
+        }).orElse(null);
     }
 }
