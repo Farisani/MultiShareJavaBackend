@@ -1,6 +1,7 @@
 package za.co.multishare.service;
 
 import org.springframework.data.domain.Page;
+import za.co.multishare.domain.dto.PostDto;
 import za.co.multishare.domain.entity.PostInfo;
 import za.co.multishare.domain.entity.PostInfoDetail;
 import za.co.multishare.domain.entity.PostInfoDetailResource;
@@ -40,4 +41,6 @@ public interface PostInfoService {
     List<PostInfoDetailResource> findPostInfoDetailResourcesByPostInfoDetailId(Long postInfoDetailId);
 
     void deletePost(Long postId);
+
+    PostDto getPost(Long postId);
 }
