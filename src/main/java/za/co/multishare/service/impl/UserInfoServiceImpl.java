@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import za.co.multishare.domain.dto.UserInfoDto;
 import za.co.multishare.domain.entity.UserInfo;
 import za.co.multishare.domain.entity.UserInfoDetail;
+import za.co.multishare.repository.UserInfoDetailRepository;
 import za.co.multishare.repository.UserInfoRepository;
 import za.co.multishare.service.UserInfoService;
 
@@ -17,15 +18,23 @@ import java.util.List;
 public class UserInfoServiceImpl implements UserInfoService {
 
     private final UserInfoRepository userInfoRepository;
+    private final UserInfoDetailRepository userInfoDetailRepository;
 
     @Autowired
-    public UserInfoServiceImpl(final UserInfoRepository userInfoRepository) {
+    public UserInfoServiceImpl(final UserInfoRepository userInfoRepository,
+                               final UserInfoDetailRepository userInfoDetailRepository) {
         this.userInfoRepository = userInfoRepository;
+        this.userInfoDetailRepository = userInfoDetailRepository;
     }
 
     @Override
     public UserInfoDetail findUserDetailsByEmailAddress(String emailAddress) {
         return null;
+    }
+
+    @Override
+    public UserInfoDetail findUserDetailsByUserInfoId(Long userInfoId) {
+       return userInfoDetailRepository.findByUserInfoUserInfoIdAndRecordValidToRecordIsNull(userInfoId);
     }
 
     @Override
