@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import za.co.multishare.domain.dto.PostDto;
 import za.co.multishare.service.PostManagerService;
 import za.co.multishare.domain.dto.CreatePostDto;
 import za.co.multishare.domain.dto.RetrievePostDto;
@@ -51,7 +50,7 @@ public class PostController {
 
     @GetMapping("/get/post-body/{postId}")
     public ResponseEntity<String> getPost(@PathVariable final Long postId) {
-        final String postBody = postManagerService.getPost(postId).getPostBody();
+        final String postBody = postManagerService.getPostBody(postId);
 
         return new ResponseEntity<>(postBody, HttpStatus.OK);
     }
