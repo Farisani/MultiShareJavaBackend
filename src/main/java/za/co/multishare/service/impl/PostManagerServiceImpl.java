@@ -69,8 +69,8 @@ public class PostManagerServiceImpl implements PostManagerService {
     }
 
     @Override
-    public PostDto getPost(Long postId) {
-        return null;
+    public String getPostBody(Long postId) {
+        return retrievePostInfoDetail(postId).getPostBody();
     }
 
     @Override
