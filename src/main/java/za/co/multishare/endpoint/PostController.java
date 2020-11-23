@@ -49,8 +49,8 @@ public class PostController {
     }
 
 
-    @GetMapping("/get/post-body")
-    public ResponseEntity<String> getPost(@RequestParam final Long postId) {
+    @GetMapping("/get/post-body/{postId}")
+    public ResponseEntity<String> getPost(@PathVariable final Long postId) {
         final String postBody = postManagerService.getPost(postId).getPostBody();
 
         return new ResponseEntity<>(postBody, HttpStatus.OK);
