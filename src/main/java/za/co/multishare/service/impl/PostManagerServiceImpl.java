@@ -3,6 +3,7 @@ package za.co.multishare.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import za.co.multishare.domain.entity.UserInfoDetail;
 import za.co.multishare.service.PostInfoService;
 import za.co.multishare.service.PostManagerService;
 import za.co.multishare.service.UserInfoService;
@@ -69,8 +70,19 @@ public class PostManagerServiceImpl implements PostManagerService {
     }
 
     @Override
-    public String getPostBody(Long postId) {
-        return retrievePostInfoDetail(postId).getPostBody();
+    public PostDto getPostBody(Long postId) {
+        final PostInfoDetail postInfoDetail =  retrievePostInfoDetail(postId);
+        final PostDto postDto = new PostDto();
+
+        final UserInfoDetail userInfoDetail = userInfoService
+                .findUserDetailsByUserInfoId(postInfoDetail.getPostInfo().getUserInfo().getUserInfoId());
+
+        postDto.setPostId(postId);
+        postDto.setDateCreated(postInfoDetail.getPostInfo().getRecordValidFromDate());
+        postDto.setPostBody(postInfoDetail.getPostBody());
+        postDto.setTitle(userInfoDetail.getSurname() + " " + userInfoDetail.getName());
+
+        return postDto;
     }
 
     @Override

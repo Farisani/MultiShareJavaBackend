@@ -19,7 +19,7 @@ public interface PostManagerService {
                              Integer pageNumber,
                              Integer pageSize);
 
-    String getPostBody(Long postId);
+    PostDto getPostBody(Long postId);
 
     Boolean deletePost(Long postId);
 }

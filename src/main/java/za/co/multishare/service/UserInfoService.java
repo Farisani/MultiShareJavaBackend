@@ -10,6 +10,8 @@ public interface UserInfoService {
 
     UserInfoDetail findUserDetailsByEmailAddress(String emailAddress);
 
+    UserInfoDetail findUserDetailsByUserInfoId(Long userInfoId);
+
     /**
      * finds all the user info's in the database based on the page number and page size
      * @param pageNumber - page of user infos to be retrieved
